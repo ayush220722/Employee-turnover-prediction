@@ -6,65 +6,105 @@ choice=int(input("Enter Your choice: "))
 
 
 if choice==1:                                           ## Employee section
-    row=[0,0,0,0,0,1,0,0,0]
-    dep=['sales', 'accounting', 'hr', 'technical', 'support', 'management',
-        'IT', 'product_mng', 'marketing', 'RandD']
+    import tkinter as tk
+    import csv
 
-    from tkinter import *
-    root=Tk()
+
+
+    def submit():
+        # Get the values from the textboxes and radio buttons
+        satisfaction_level_value = satisfaction_level.get()
+        last_evaluation_value = last_evaluation.get()
+        num_projects_value = num_projects.get()
+        avg_monthly_hours_value = avg_monthly_hours.get()
+        time_spent_value = time_spent.get()
+        work_accident_value = work_accident.get()
+        promotion_last_5_years_value = promotion_last_5_years.get()
+        department_value = department_var.get()
+        salary_value = salary_var.get()
+        
+        # Open the CSV file for writing and write the data to it
+        with open('dataset.csv', mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([satisfaction_level_value, last_evaluation_value, num_projects_value, 
+                            avg_monthly_hours_value, time_spent_value, work_accident_value,1, 
+                            promotion_last_5_years_value, department_value, salary_value])
+        
+        # Clear the textboxes
+        satisfaction_level.delete(0, tk.END)
+        last_evaluation.delete(0, tk.END)
+        num_projects.delete(0, tk.END)
+        avg_monthly_hours.delete(0, tk.END)
+        time_spent.delete(0, tk.END)
+        work_accident.delete(0, tk.END)
+        promotion_last_5_years.delete(0, tk.END)
+
+
+    root = tk.Tk()
     root.title("Employee")
-    root.geometry("800x800")
 
-    Label(root, text="Please fill the work experience form ",font="ar 15 bold").grid(row=0,column=3)
+    # Create labels for the textboxes
+    tk.Label(root, text="Please fill the work experience:").grid(row=0, column=0, sticky="w")
+    tk.Label(root, text="Satisfaction level (float):").grid(row=1, column=0, sticky="w")
+    tk.Label(root, text="Last evaluation (float):").grid(row=2, column=0, sticky="w")
+    tk.Label(root, text="Number of projects (integer):").grid(row=3, column=0, sticky="w")
+    tk.Label(root, text="Average monthly hours (integer):").grid(row=4, column=0, sticky="w")
+    tk.Label(root, text="Time spent (years) (integer):").grid(row=5, column=0, sticky="w")
+    tk.Label(root, text="Work accident (integer):").grid(row=6, column=0, sticky="w")
+    tk.Label(root, text="Promotion in last 5 years (integer):").grid(row=7, column=0, sticky="w")
 
-    satis_level=Label(root,text="Satisfaction level").grid(row=1,column=2)
-    last_eval=Label(root,text="Last Evaluation").grid(row=2,column=2)
-    noofproj=Label(root,text="number of project").grid(row=3,column=2)
-    avgmonthlyhr=Label(root,text="average monthly hours").grid(row=4,column=2)
-    time_spent=Label(root,text="Time spent(years)").grid(row=5,column=2)
-    work_accident=Label(root,text="Work Accident").grid(row=6,column=2)
-    promotion=Label(root,text="promotions in last 5 years").grid(row=7,column=2)
-    department=Label(root,text="Department").grid(row=8,column=2)
-    # salary=Label(root,text="salary")
+    # Create the textboxes for input
+    satisfaction_level = tk.Entry(root)
+    satisfaction_level.grid(row=1, column=1)
 
+    last_evaluation = tk.Entry(root)
+    last_evaluation.grid(row=2, column=1)
 
-    satis_levelval=IntVar
-    last_evalval=IntVar
-    noofprojval=IntVar
-    avgmonthlyhrval=IntVar
-    time_spentval=IntVar
-    work_accidentval=IntVar
-    promotionval=IntVar
-    var=StringVar
+    num_projects = tk.Entry(root)
+    num_projects.grid(row=3, column=1)
 
+    avg_monthly_hours = tk.Entry(root)
+    avg_monthly_hours.grid(row=4, column=1)
 
+    time_spent = tk.Entry(root)
+    time_spent.grid(row=5, column=1)
 
-    sasentry=Entry(root, textvariable=satis_levelval).grid(row=1,column=3)
-    evaluentry=Entry(root,textvariable=last_evalval).grid(row=2,column=3)
-    nopentry=Entry(root,textvariable=noofprojval).grid(row=3,column=3)
-    avegtimeentry=Entry(root,textvariable=avgmonthlyhrval).grid(row=4,column=3)
-    timeentry=Entry(root, textvariable=time_spentval).grid(row=5,column=3)
-    worksccentry=Entry(root,textvariable=work_accidentval).grid(row=6,column=3)
-    promoentry=Entry(root,textvariable=promotionval).grid(row=7,column=3)
+    work_accident = tk.Entry(root)
+    work_accident.grid(row=6, column=1)
 
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
-    radio=Radiobutton(root,text='sales',padx=14,variable=var,value="sales").grid(row=8,column=3)
+    promotion_last_5_years = tk.Entry(root)
+    promotion_last_5_years.grid(row=7, column=1)
 
+    # Create radio buttons for department and salary selection
+    department_var = tk.StringVar()
+    department_var.set("None")
 
+    salary_var = tk.StringVar()
+    salary_var.set("None")
+
+    tk.Label(root, text="Department:").grid(row=8, column=0, sticky="w")
+    tk.Radiobutton(root, text="Sales", variable=department_var, value="sales").grid(row=9, column=0, sticky="w")
+    tk.Radiobutton(root, text="Accounting", variable=department_var, value="accounting").grid(row=10, column=0, sticky="w")
+    tk.Radiobutton(root, text="Human Resources", variable=department_var, value="hr").grid(row=11, column=0, sticky="w")
+    tk.Radiobutton(root, text="Technical", variable=department_var, value="technical").grid(row=12, column=0, sticky="w")
+    tk.Radiobutton(root, text="Support", variable=department_var, value="support").grid(row=13, column=0, sticky="w")
+    tk.Radiobutton(root, text="Managemnt", variable=department_var, value="management").grid(row=14, column=0, sticky="w")
+    tk.Radiobutton(root, text="IT", variable=department_var, value="IT").grid(row=15, column=0, sticky="w")
+    tk.Radiobutton(root, text="Product Manager", variable=department_var, value="product_mng").grid(row=16, column=0, sticky="w")
+    tk.Radiobutton(root, text="Marketing", variable=department_var, value="marketing").grid(row=17, column=0, sticky="w")
+    tk.Radiobutton(root, text="Research and devlopement", variable=department_var, value="RandD").grid(row=18, column=0, sticky="w")
+
+    tk.Label(root, text="Salary:").grid(row=8, column=1, sticky="w")
+    tk.Radiobutton(root, text="Low", variable=salary_var, value="Low").grid(row=9, column=1, sticky="w")
+    tk.Radiobutton(root, text="Medium", variable=salary_var, value="Medium").grid(row=10, column=1, sticky="w")
+    tk.Radiobutton(root, text="High", variable=salary_var, value="High").grid(row=11, column=1, sticky="w")
+
+    # Define a function to handle the submit button click event
+    submit_button = tk.Button(root, text="Submit", command=submit)
+    submit_button.grid(row=19, column=1)
     root.mainloop()
 
-    from csv import writer
-
-    my_file="dataset.csv"
-    with open(my_file,"a") as f_obj:
-        writer_object=writer(f_obj)
-        writer_object.writerow(row)
-        f_obj.close()
+    
 
 elif choice==2:
     import numpy as np
