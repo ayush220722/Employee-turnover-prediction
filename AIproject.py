@@ -109,6 +109,7 @@ if choice==1:                                           ## Employee section
 elif choice==2:
     import numpy as np
     import pandas as pd
+    import csv
 
     df = pd.read_csv('dataset.csv')
     df = df.rename(columns={'sales' : 'department'})
